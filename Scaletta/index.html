@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capolavoro Project - Index & Language Selection</title>
+    
+    <link rel="stylesheet" href="/style.css">
+
+    <style>
+        /* Small styling additions to keep the clean look for buttons */
+        .lang-button {
+            background-color: transparent;
+            border: 2px solid #333;
+            padding: 10px 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+        .lang-button.active, .lang-button:hover {
+            background-color: #333;
+            color: #fff;
+        }
+        .lang-section {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .project-list {
+            margin-top: 20px;
+            line-height: 1.8;
+        }
+        .project-list li {
+            margin-bottom: 15px;
+        }
+        .project-list a {
+            color: inherit;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1 id="page-title">Project Directory</h1>
+        <p>Capolavoro Project • Digital Literacy & Inclusivity</p>
+    </header>
+
+    <div class="container">
+        
+        <section class="lang-section">
+            <button class="lang-button active" onclick="setLanguage('en')">English 🇬🇧</button>
+            <button class="lang-button" onclick="setLanguage('it')">Italiano 🇮🇹</button>
+        </section>
+
+        <section>
+            <h2 id="section-title">Project Contents</h2>
+            <p id="section-desc">Select a language above to translate the directory content. Below is the complete map of everything displayed across this project:</p>
+            
+            <ul class="project-list" id="directory-list">
+            </ul>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Lorenzo Rodoni 1 AOL - Capolavoro</p>
+    </footer>
+
+    <script>
+        const content = {
+            en: {
+                title: "Project Directory",
+                secTitle: "Project Contents",
+                desc: "Select a language above to translate the directory content. Below is the complete map of everything displayed across this project:",
+                items: [
+                    "<strong>Home Page (Introduction to SLD / DSA):</strong> Overview of neurodevelopmental variations, regular IQ baselines, and Italian Law 170/2010 regulations.",
+                    "<strong>Compensatory Tools vs. Dispensatory Measures:</strong> Detailed analysis of PDP strategies like text-to-speech software, mind maps, and the 30% extra time rule.",
+                    "<strong>Dyslexia Deep Dive:</strong> Scientific breakdown of phonological decoding, processing differences, and reading fatigue barriers.",
+                    "<strong>Inspiration Spotlight:</strong> Introduction to the film <em>'Stars on Earth'</em> (Stelle sulla terra) and the profile of Ishaan Awasthi's artistic talents.",
+                    "<strong>The Breakthrough Analysis:</strong> Dedicated page containing the video clip of Teacher Nikumbh confronting the family with the Chinese text reading experiment.",
+                    "<strong>Dysorthography Focus:</strong> Structural analysis of linguistic encoding challenges broken down into phonological, non-phonological, and phonetic error patterns.",
+                    "<strong>Dysgraphia Focus:</strong> Exploration of neuro-motor handwriting execution difficulties, physical fatigue barriers, and how keyboard usage balances the field.",
+                    "<strong>Dyscalculia Focus:</strong> Breakdown of fundamental number sense obstacles, math tracking issues, and the use of technical calculation matrix aids.",
+                    "<strong>Project Roadmap & Creator Profile:</strong> A complete personal statement showcasing multi-language skills, independent programming capabilities, and future plans.",
+                    "<strong>Interactive Directory Index:</strong> This current language selection interface module."
+                ]
+            },
+            it: {
+                title: "Indice del Progetto",
+                secTitle: "Contenuti del Progetto",
+                desc: "Seleziona una lingua sopra per tradurre il contenuto dell'indice. Di seguito è riportata la mappa completa di tutto ciò che viene mostrato nel progetto:",
+                items: [
+                    "<strong>Pagina Principale (Introduzione ai DSA):</strong> Panoramica sulle variazioni neurobiologiche, quoziente intellettivo nella norma e tutele della Legge Italiana 170/2010.",
+                    "<strong>Strumenti Compensativi vs. Misure Dispensative:</strong> Analisi dettagliata delle strategie PDP come la sintesi vocale, mappe concettuali e la regola del 30% di tempo in più.",
+                    "<strong>Approfondimento sulla Dislessia:</strong> Spiegazione scientifica della decodifica fonologica, differenze di elaborazione e affaticamento nella lettura.",
+                    "<strong>Focus sull'Ispirazione:</strong> Introduzione al film cinematografico <em>'Stelle sulla terra'</em> (Taare Zameen Par) e il profilo del talento artistico di Ishaan Awasthi.",
+                    "<strong>Analisi della Svolta:</strong> Pagina dedicata contenente la clip video del maestro Nikumbh che confronta la famiglia con l'esperimento del testo in cinese.",
+                    "<strong>Focus sulla Disortografia:</strong> Analisi strutturale delle sfide di codifica linguistica suddivise in pattern di errori fonologici, non fonologici e fonetici.",
+                    "<strong>Focus sulla Disgrafia:</strong> Esplorazione delle difficoltà nell'esecuzione motoria della scrittura, barriere di affaticamento fisico e come la tastiera equilibra il campo.",
+                    "<strong>Focus sulla Discalculia:</strong> Analisi degli ostacoli fondamentali nel senso del numero, problemi di tracciamento matematico e uso di supporti tecnici di calcolo.",
+                    "<strong>Manifesto del Progetto & Profilo Creatore:</strong> Una dichiarazione di intenti personale che evidenzia abilità multilingua, programmazione autonoma e piani futuri.",
+                    "<strong>Indice Interattivo del Progetto:</strong> Questo modulo di navigazione e selezione della lingua corrente."
+                ]
+            }
+        };
+
+        function setLanguage(lang) {
+            // Update button UI states
+            document.querySelectorAll('.lang-button').forEach(btn => btn.classList.remove('active'));
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
+
+            // Update text contents
+            document.getElementById('page-title').innerText = content[lang].title;
+            document.getElementById('section-title').innerText = content[lang].secTitle;
+            document.getElementById('section-desc').innerHTML = content[lang].desc;
+
+            // Rebuild the directory list
+            const listContainer = document.getElementById('directory-list');
+            listContainer.innerHTML = '';
+            content[lang].items.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = item;
+                listContainer.appendChild(li);
+            });
+        }
+
+        // Initialize with English layout on initial render
+        window.onload = function() {
+            setLanguage('en');
+        };git
+    </script>
+
+</body>
+</html>
